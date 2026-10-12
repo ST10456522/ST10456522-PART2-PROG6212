@@ -68,7 +68,7 @@ namespace part2POE.Controllers
 
                 connect.Open();
 
-                string query = "UPDATE participant set fullname ='" + fullname + "',email ='"+email+"' WHERE participant_id ='" + participant_id + "';";
+                string query = "UPDATE participant set fullname ='" + fullname + "',email ='" + email + "' WHERE participant_id ='" + participant_id + "';";
 
                 SqlCommand run_query = new SqlCommand(query, connect);
                 run_query.ExecuteNonQuery();
@@ -80,6 +80,34 @@ namespace part2POE.Controllers
                 message = error.Message;
             }
             return message;
+        }
+            [HttpGet]
+            public string getinfo_participant(int participant_id)
+            {
+                string message = "";
+                try
+                {// start of try
+                    string string_connection = @"Data source=(localdb)\api_endpoint;database=Raceday;";
+                    string query = @"select * from participant where participant_id = '" + participant_id + "';";
+                    SqlConnection connect = new SqlConnection(string_connection);
+
+                    connect.Open();
+                    SqlCommand run_query = new SqlCommand(query, connect);
+
+                    SqlDataReader data_found = run_query.ExecuteReader();
+
+                    while (data_found.Read())
+                    {
+                        message = "Organiser name:" + data_found["organiser_name"].ToString();
+                    }
+                    connect.Close();
+                }
+                catch (Exception error)
+                {
+                    message = error.Message;
+                }
+                return message;
+            }
         }
     }
 }

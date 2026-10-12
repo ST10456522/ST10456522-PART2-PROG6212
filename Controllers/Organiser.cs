@@ -97,8 +97,19 @@ namespace part2POE.Controllers
                 connect.Open();
                 SqlCommand run_query = new SqlCommand(query, connect);
 
-                SqlDataReader data_found 
+                SqlDataReader data_found = run_query.ExecuteReader();
+
+                while (data_found.Read())
+                {
+                    message = "Organiser name:" + data_found["organiser_name"].ToString();
+                }
+                connect.Close();
             }
+            catch (Exception error)
+            {
+                message = error.Message;
             }
-    }
+            return message;
+        }
+        }
 }
