@@ -143,8 +143,8 @@ public string UPDATE_EVENT(int event_id, string event_type,
         }
         
           
-[HttpDelete]
-public string DELETE_EVENT(int event_id, int organiser_id)
+        [HttpDelete]
+        public string DELETE_EVENT(int event_id, int organiser_id)
         {
             string message = "";
 
@@ -184,6 +184,49 @@ public string DELETE_EVENT(int event_id, int organiser_id)
                 }
 
                 connect.Close();
+            }
+            catch (Exception error)
+            {
+                message = error.Message;
+            }
+
+            return message;
+        }
+        
+[HttpGet]
+public string GET_EVENT()
+        {
+            string message = "";
+
+            try
+            {
+                string string_connection = @"Data Source=(localdb)\api_endpoint;Database=Raceday;";
+                SqlConnection connect = new SqlConnection(string_connection);
+
+                connect.Open();
+
+                string query = "SELECT * FROM event";
+
+                SqlCommand run_query = new SqlCommand(query, connect);
+                SqlDataReader data_found = run_query.ExecuteReader();
+
+                while (data_found.Read())
+                {
+                    message += "Event ID: " + data_found["event_id"].ToString() +
+                        ", Event Type: " + data_found["event_type"].ToString() +
+                        ", Event Name: " + data_found["event_name"].ToString() +
+                        ", Location: " + data_found["Location"].ToString() +
+                        ", Description: " + data_found["event_description"].ToString() +
+                        ", Weather: " + data_found["weather"].ToString() +
+                        ", Organiser ID: " + data_found["organiser_id"].ToString() +
+                        ", Category ID: " + data_found["category_id"].ToString() + "\n";
+                }
+
+                data_found.Close();
+                connect.Close();
+
+                if (message == "")
+                    message = "No events found";
             }
             catch (Exception error)
             {
