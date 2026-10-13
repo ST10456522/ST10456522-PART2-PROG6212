@@ -77,7 +77,7 @@ namespace part2POE.Controllers
 [HttpPut]
 public string UPDATE_EVENT(int event_id, string event_type,
     string event_name, string location, string event_description,
-    string weather, int organiser_id, int category_id)
+    string weather, DateTime event_date, string distance, int organiser_id, int category_id)
         {
             string message = "";
 
@@ -99,14 +99,16 @@ public string UPDATE_EVENT(int event_id, string event_type,
                 if (count > 0)
                 {
                     string query = @"UPDATE event SET
-                event_type = @event_type,
-                event_name = @event_name,
-                Location = @location,
-                event_description = @event_description,
-                weather = @weather,
-                organiser_id = @organiser_id,
-                category_id = @category_id
-                WHERE event_id = @event_id";
+                                  event_type = @event_type,
+                                 event_name = @event_name,
+                                 Location = @location,
+                                 event_description = @event_description,
+                                 weather = @weather,
+                                 event_date = @event_date,
+                                 distance = @distance,
+                                 category_id = @category_id
+                                 WHERE event_id = @event_id
+                                 AND organiser_id = @organiser_id"; 
 
                     SqlCommand run_query = new SqlCommand(query, connect);
 
@@ -116,6 +118,8 @@ public string UPDATE_EVENT(int event_id, string event_type,
                     run_query.Parameters.AddWithValue("@location", location);
                     run_query.Parameters.AddWithValue("@event_description", event_description);
                     run_query.Parameters.AddWithValue("@weather", weather);
+                    run_query.Parameters.AddWithValue("@event_date", event_date);
+                    run_query.Parameters.AddWithValue("@distance", distance);
                     run_query.Parameters.AddWithValue("@organiser_id", organiser_id);
                     run_query.Parameters.AddWithValue("@category_id", category_id);
 
@@ -221,6 +225,8 @@ public string GET_EVENT()
                         ", Location: " + data_found["Location"].ToString() +
                         ", Description: " + data_found["event_description"].ToString() +
                         ", Weather: " + data_found["weather"].ToString() +
+                        ", Event Date: " + data_found["event_date"].ToString() +
+                         ", Distance: " + data_found["distance"].ToString() +
                         ", Organiser ID: " + data_found["organiser_id"].ToString() +
                         ", Category ID: " + data_found["category_id"].ToString() + "\n";
                 }

@@ -7,5 +7,9 @@ namespace part2POE.Controllers
     [ApiController]
     public class Enrolment : ControllerBase
     {
-    }
+        [HttpPost]
+        public string enrol()
+        {
+
+        }
 }
