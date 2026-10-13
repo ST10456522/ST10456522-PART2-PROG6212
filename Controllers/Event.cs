@@ -142,8 +142,9 @@ public string UPDATE_EVENT(int event_id, string event_type,
             return message;
         }
         
-            [HttpDelete]
-            public string DELETE_EVENT(int event_id, int organiser_id)
+          
+[HttpDelete]
+public string DELETE_EVENT(int event_id, int organiser_id)
         {
             string message = "";
 
