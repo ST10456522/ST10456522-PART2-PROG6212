@@ -98,7 +98,7 @@ namespace part2POE.Controllers
 
                     while (data_found.Read())
                     {
-                        message = "Organiser name:" + data_found["organiser_name"].ToString();
+                        message = "participant name:" + data_found["fullname"].ToString() + "  participant email:" + data_found["email"].ToString();
                     }
                     connect.Close();
                 }
@@ -110,4 +110,4 @@ namespace part2POE.Controllers
             }
         }
     }
-}
+
