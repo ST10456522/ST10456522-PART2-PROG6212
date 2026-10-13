@@ -235,6 +235,51 @@ public string GET_EVENT()
 
             return message;
         }
+       
+[HttpGet("{event_id}")]
+public string GET_EVENT_BY_ID(int event_id)
+        {
+            string message = "";
+
+            try
+            {
+                string string_connection = @"Data Source=(localdb)\api_endpoint;Database=Raceday;";
+                SqlConnection connect = new SqlConnection(string_connection);
+                connect.Open();
+
+                string query = "SELECT * FROM event WHERE event_id = @event_id";
+
+                SqlCommand run_query = new SqlCommand(query, connect);
+                run_query.Parameters.AddWithValue("@event_id", event_id);
+
+                SqlDataReader data_found = run_query.ExecuteReader();
+
+                if (data_found.Read())
+                {
+                    message = "Event ID: " + data_found["event_id"].ToString() +
+                        ", Event Name: " + data_found["event_name"].ToString() +
+                        ", Event Type: " + data_found["event_type"].ToString() +
+                        ", Location: " + data_found["Location"].ToString() +
+                        ", Description: " + data_found["event_description"].ToString() +
+                        ", Weather: " + data_found["weather"].ToString() +
+                        ", Organiser ID: " + data_found["organiser_id"].ToString() +
+                        ", Category ID: " + data_found["category_id"].ToString();
+                }
+                else
+                {
+                    message = "Event not found";
+                }
+
+                data_found.Close();
+                connect.Close();
+            }
+            catch (Exception error)
+            {
+                message = error.Message;
+            }
+
+            return message;
+        }
 
     }
 }
