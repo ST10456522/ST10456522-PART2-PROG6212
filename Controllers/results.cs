@@ -88,9 +88,9 @@ public string get_results(int participant_id)
 
                 while (data_found.Read())
                 {
-                    message += "Results ID: " + data_found["results_id"].ToString() +
+                    message += 
                         ", Participant ID: " + data_found["participant_id"].ToString() +
-                        ", Organiser ID: " + data_found["organiser_id"].ToString() +
+                        
                         ", Performance History: " + data_found["performance_history"].ToString()
                         + "\n";
                 }

@@ -98,7 +98,7 @@ namespace part2POE.Controllers
 
             return Ok(categories);
         }
-        [HttpGet("category/{category_id}")]
+        [HttpGet("category/{category_id}")] //
         public IActionResult enrolment_get()
         {
             SqlConnection connect = new SqlConnection(
