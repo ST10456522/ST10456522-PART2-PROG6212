@@ -9,9 +9,8 @@ namespace part2POE.Controllers
     public class Participant : ControllerBase
     {
         [HttpPost]
-        public string store_participant(int participant_id, string fullname, string email)
-        {// start of method
-
+        public string store_participant(string fullname, string email)
+        {
             string message = "";
 
             try
@@ -20,18 +19,24 @@ namespace part2POE.Controllers
                 SqlConnection connect = new SqlConnection(string_connection);
 
                 connect.Open();
-                string query = @"insert into participant values ('" + participant_id + "', '" + fullname + "', '" + email + "');";
+
+                string query = @"INSERT INTO participant (fullname, email)
+                         VALUES ('" + fullname + "', '" + email + "')";
+
                 SqlCommand run_query = new SqlCommand(query, connect);
                 run_query.ExecuteNonQuery();
-                message = "participant infomation saved successfully ";
-                connect.Close();
 
+                message = "Participant information saved successfully";
+
+                connect.Close();
             }
             catch (Exception error)
             {
                 message = error.Message;
             }
+
             return message;
+        
         } // end of method
         [HttpDelete]
         public string participant_details(int participant_id)
