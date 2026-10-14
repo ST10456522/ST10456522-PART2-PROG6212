@@ -16,7 +16,7 @@ namespace part2POE.Controllers
 
             try
             {
-                string string_connection = @"Data source=(localdb)\MSSQLLocalDB;database=Raceday;";
+                string string_connection = @"Data source=(localdb)\api_endpoint;database=Raceday;";
                 SqlConnection connect = new SqlConnection(string_connection);
 
                 connect.Open();
@@ -33,6 +33,7 @@ namespace part2POE.Controllers
             }
             return message;
         }
+
     }
 }
 
