@@ -8,7 +8,7 @@ namespace part2POE.Controllers
     [ApiController]
     public class category : ControllerBase
     {
-        [HttpPost]
+        [HttpPost] // httppost for only the organiser to post the category 
 
         public string category_post(int category_id, string category_name, string age, int organiser_id, int event_id)
         {
