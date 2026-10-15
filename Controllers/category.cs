@@ -68,7 +68,7 @@ namespace part2POE.Controllers
 
             return " category created successfully.";
         }
-        [HttpGet]
+        [HttpGet] //httpget all the categories
         public IActionResult category_get()
         {
             SqlConnection connect = new SqlConnection(
