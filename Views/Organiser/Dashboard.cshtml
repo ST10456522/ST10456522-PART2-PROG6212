@@ -1,0 +1,91 @@
+﻿@model List<RaceDayMVC.Models.EventModel>
+
+<div class="container mt-4" style="min-height: 75vh;">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>Organiser Dashboard</h2>
+        <a href="/Organiser/CreateEvent" class="btn btn-primary">+ Create New Event</a>
+    </div>
+
+    <!-- Success/Error Messages -->
+    @if (TempData["Success"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show">
+            @TempData["Success"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    }
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert alert-danger alert-dismissible fade show">
+            @TempData["Error"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    }
+
+    @if (Model.Count == 0)
+    {
+        <div class="alert alert-info">
+            You have not created any events yet. Click "Create New Event" to get started!
+        </div>
+    }
+    else
+    {
+        <div class="card shadow">
+            <div class="card-body p-0">
+                <table class="table table-hover mb-0">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Event Name</th>
+                            <th>Date</th>
+                            <th>Location</th>
+                            <th>Distance</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var ev in Model)
+                        {
+                            <tr>
+                                <td class="align-middle fw-bold">@ev.EventName</td>
+                                <td class="align-middle">@ev.EventDate.ToString("dd MMM yyyy")</td>
+                                <td class="align-middle">@ev.Location</td>
+                                <td class="align-middle">@ev.Distance</td>
+                                <td class="align-middle">
+
+                                    <!-- EDIT -->
+                                    <a asp-action="CreateEvent" asp-route-id="@ev.EventId" class="btn btn-sm btn-outline-secondary">
+                                        Edit
+                                    </a>
+
+                                    <!-- CATEGORIES -->
+                                    <a asp-action="Categories" asp-route-id="@ev.EventId" class="btn btn-sm btn-outline-info">
+                                        Categories
+                                    </a>
+
+                                    <!-- VIEW ENROLMENTS -->
+                                    <a asp-action="Enrolments" asp-route-id="@ev.EventId" class="btn btn-sm btn-outline-success">
+                                        Enrolments
+                                    </a>
+
+                                    <!-- CAPTURE RESULTS -->
+                                    <a asp-action="CaptureResults" asp-route-id="@ev.EventId" class="btn btn-sm btn-outline-dark">
+                                        Results
+                                    </a>
+
+                                    <!-- DELETE -->
+                                    <form asp-action="DeleteEvent" method="post" onsubmit="return confirm('Are you sure you want to delete this event?');" style="display:inline;">
+                                        <input type="hidden" name="eventId" value="@ev.EventId" />
+                                        <button type="submit" class="btn btn-sm btn-outline-danger">
+                                            Delete
+                                        </button>
+                                    </form>
+
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    }
+</div>

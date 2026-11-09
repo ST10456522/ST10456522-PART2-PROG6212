@@ -1,0 +1,70 @@
+:root {
+    --raceday-primary: #FF5722;
+    --raceday-dark: #212529;
+    --raceday-light: #f8f9fa;
+    --raceday-success: #198754;
+    --raceday-warning: #ffc107;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--raceday-light);
+    color: #333;
+    min-height: 100vh;
+    padding-bottom: 40px;
+}
+main {
+    flex: 1 0 auto;
+    padding-bottom: 50px; /* Gives space before the footer */
+}
+
+.navbar {
+    background-color: var(--raceday-dark) !important;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-brand {
+    font-weight: 800;
+    font-size: 1.5rem;
+    color: var(--raceday-primary) !important;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.nav-link {
+    color: #fff !important;
+    font-weight: 500;
+}
+
+    .nav-link:hover {
+        color: var(--raceday-primary) !important;
+    }
+
+.card {
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    transition: transform 0.2s ease-in-out;
+}
+
+    .card:hover {
+        transform: translateY(-5px);
+    }
+
+.btn-primary {
+    background-color: var(--raceday-primary);
+    border-color: var(--raceday-primary);
+    font-weight: 600;
+}
+
+    .btn-primary:hover {
+        background-color: #E64A19;
+    }
+
+footer {
+    flex-shrink: 0;
+    background-color: var(--raceday-dark);
+    color: #adb5bd;
+    padding: 20px 0;
+    width: 100%;
+}

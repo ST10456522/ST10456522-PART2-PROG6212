@@ -1,0 +1,109 @@
+﻿@model List<RaceDayMVC.Models.EventModel>
+
+@{
+    ViewData["Title"] = "Upcoming Events";
+    var enrolledEvents = ViewBag.EnrolledEvents as List<string>;
+    var categories = ViewBag.Categories as List<RaceDayMVC.Models.CategoryModel>;
+}
+
+<div class="container mt-4" style="min-height: 75vh;">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>Upcoming Events</h2>
+
+        <!-- Search Filter -->
+        <div class="w-25">
+            <input type="text" id="searchInput" class="form-control" placeholder="Search events..." onkeyup="filterEvents()" />
+        </div>
+    </div>
+
+    @if (TempData["Success"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show">
+            @TempData["Success"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    }
+
+    @if (Model.Count == 0)
+    {
+        <div class="alert alert-info">There are no upcoming events available at the moment.</div>
+    }
+    else
+    {
+        <div class="row">
+            @foreach (var ev in Model)
+            {
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card h-100 shadow-sm">
+
+                        <div class="bg-dark text-white text-center py-4" style="border-top-left-radius: 10px; border-top-right-radius: 10px;">
+                            <h5 class="mb-0">@ev.EventType</h5>
+                        </div>
+
+                        <div class="card-body">
+                            <!-- Clicking the title goes to the Details page -->
+                            <a asp-action="Details" asp-route-id="@ev.EventId" class="text-decoration-none">
+                                <h4 class="card-title text-primary fw-bold">@ev.EventName</h4>
+                            </a>
+
+                            <p class="card-text text-muted mb-2">
+                                📅 <strong>Date:</strong> @ev.EventDate.ToString("dd MMM yyyy") <br />
+                                📍 <strong>Location:</strong> @ev.Location <br />
+                                🏃 <strong>Distance:</strong> @ev.Distance
+                            </p>
+                            <p class="card-text">@ev.EventDescription</p>
+                        </div>
+
+                        <div class="card-footer bg-white border-top-0 pb-3">
+                            @{
+                                bool isEnrolled = enrolledEvents != null && enrolledEvents.Contains(ev.EventId.ToString());
+                            }
+
+                            @if (isEnrolled)
+                            {
+                                <button class="btn btn-success w-100" disabled>✓ Enrolment Confirmed</button>
+                            }
+                            else
+                            {
+                                <form asp-action="Enrol" method="post">
+                                    <input type="hidden" name="eventId" value="@ev.EventId" />
+
+                                    <!-- THE CATEGORY DROPDOWN FORM -->
+                                    <div class="mb-2">
+                                        <select name="categoryId" class="form-select form-select-sm" required>
+                                            <option value="">Select Category...</option>
+                                            @if (categories != null)
+                                            {
+                                                foreach (var cat in categories)
+                                                {
+                                                    <option value="@cat.CategoryId">@cat.CategoryName</option>
+                                                }
+                                            }
+                                        </select>
+                                    </div>
+
+                                    <button type="submit" class="btn btn-primary w-100">Enrol Now</button>
+                                </form>
+                            }
+                        </div>
+
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>
+
+@section Scripts {
+    <script>
+        function filterEvents() {
+            var input = document.getElementById("searchInput");
+            var filter = input.value.toLowerCase();
+            var cards = document.getElementsByClassName("col-md-6 col-lg-4");
+            for (var i = 0; i < cards.length; i++) {
+                var title = cards[i].querySelector(".card-title").innerText.toLowerCase();
+                cards[i].style.display = title.includes(filter) ? "" : "none";
+            }
+        }
+    </script>
+}

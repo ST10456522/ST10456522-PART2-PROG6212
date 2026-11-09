@@ -1,0 +1,98 @@
+﻿@model RaceDayMVC.Models.RegisterModel
+
+@{
+    ViewData["Title"] = "Register";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="mb-0">Create a RaceDay Account</h4>
+                </div>
+                <div class="card-body">
+
+                    @if (ViewBag.Error != null)
+                    {
+                        <div class="alert alert-danger">
+                            <strong>Registration Failed:</strong> @ViewBag.Error
+                        </div>
+                    }
+
+                    <form asp-action="Register" method="post">
+                        @Html.AntiForgeryToken()
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label>Username</label>
+                                <input asp-for="Username" class="form-control" />
+                                <span asp-validation-for="Username" class="text-danger"></span>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label>Password</label>
+                                <input asp-for="Password" type="password" class="form-control" />
+                                <span asp-validation-for="Password" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label>Account Type</label>
+                            <select asp-for="Role" class="form-control" id="roleSelect">
+                                <option value="">Select account type</option>
+                                <option value="Participant">Participant</option>
+                                <option value="Organiser">Organiser</option>
+                            </select>
+                            <span asp-validation-for="Role" class="text-danger"></span>
+                        </div>
+
+                        <div id="participantFields" style="display:none;">
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label>Full Name</label>
+                                    <input asp-for="FullName" class="form-control" />
+                                </div>
+                                <div class="col-md-6">
+                                    <label>Email</label>
+                                    <input asp-for="Email" type="email" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="organiserFields" style="display:none;">
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label>Organiser ID</label>
+                                    <input asp-for="OrganiserId" class="form-control" type="number" value="0" />
+                                </div>
+                                <div class="col-md-6">
+                                    <label>Organiser Name</label>
+                                    <input asp-for="OrganiserName" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary w-100 mt-3">Register</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        document.getElementById('roleSelect').addEventListener('change', function () {
+            var participantFields = document.getElementById('participantFields');
+            var organiserFields = document.getElementById('organiserFields');
+
+            if (this.value === 'Organiser') {
+                participantFields.style.display = 'none';
+                organiserFields.style.display = 'block';
+            } else if (this.value === 'Participant') {
+                participantFields.style.display = 'block';
+                organiserFields.style.display = 'none';
+            }
+        });
+    </script>
+}

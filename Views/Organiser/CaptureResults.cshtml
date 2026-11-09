@@ -1,0 +1,29 @@
+﻿@{
+    ViewData["Title"] = "Capture Results";
+}
+<div class="container mt-4">
+    <h2>Capture Results for Event @ViewBag.EventId</h2>
+    <a href="/Organiser/Dashboard" class="btn btn-secondary mb-3">Back to Dashboard</a>
+
+    <div class="card shadow">
+        <div class="card-body">
+            <form>
+                <div class="row mb-3">
+                    <div class="col-md-4">
+                        <label>Participant ID</label>
+                        <input type="number" class="form-control" placeholder="e.g. 4002" />
+                    </div>
+                    <div class="col-md-4">
+                        <label>Finish Time</label>
+                        <input type="text" class="form-control" placeholder="HH:MM:SS" />
+                    </div>
+                    <div class="col-md-4">
+                        <label>Finishing Position</label>
+                        <input type="number" class="form-control" placeholder="e.g. 47" />
+                    </div>
+                </div>
+                <button type="button" class="btn btn-success w-100">Save Result</button>
+            </form>
+        </div>
+    </div>
+</div>

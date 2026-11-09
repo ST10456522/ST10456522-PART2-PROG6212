@@ -1,0 +1,50 @@
+﻿@model List<RaceDayMVC.Models.EventModel>
+
+@{
+    ViewData["Title"] = "My Enrolments";
+}
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>My Enrolments</h2>
+        <a href="/Participant/Index" class="btn btn-secondary">Browse More Events</a>
+    </div>
+
+    @if (Model.Count == 0)
+    {
+        <div class="alert alert-info">
+            You have not enrolled in any events yet. <a href="/Participant/Index">Click here to browse events</a>.
+        </div>
+    }
+    else
+    {
+        <div class="card shadow">
+            <div class="card-body p-0">
+                <table class="table table-hover mb-0">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Event Name</th>
+                            <th>Date</th>
+                            <th>Location</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var ev in Model)
+                        {
+                            <tr>
+                                <td class="align-middle fw-bold">@ev.EventName</td>
+                                <td class="align-middle">@ev.EventDate.ToString("dd MMM yyyy")</td>
+                                <td class="align-middle">@ev.Location</td>
+                                <td class="align-middle">
+                                    <!-- Displays the green Confirmed badge -->
+                                    <span class="status-confirmed">Confirmed</span>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    }
+</div>

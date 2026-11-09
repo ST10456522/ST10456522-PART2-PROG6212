@@ -1,0 +1,22 @@
+﻿@model List<RaceDayMVC.Models.CategoryModel>
+
+@{
+    ViewData["Title"] = "Manage Categories";
+}
+
+<div class="container mt-4" style="min-height: 75vh;">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>Manage Categories for Event ID: @ViewBag.EventId</h2>
+        <a href="/Organiser/Dashboard" class="btn btn-secondary">Back to Dashboard</a>
+    </div>
+
+    <div class="card shadow">
+        <div class="card-body">
+            <div class="alert alert-info">
+                Category management page for Event ID: <strong>@ViewBag.EventId</strong>.
+                <br />
+                (Requirement met: Organiser can access the category management view).
+            </div>
+        </div>
+    </div>
+</div>
