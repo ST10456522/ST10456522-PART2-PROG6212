@@ -1,121 +1,54 @@
-# part2POE
-Raceday Management API
+# RaceDay Management System - POE
 
- Project Overview
+## Project Overview
+RaceDay is a full-stack web application developed using ASP.NET Core, C#, and Microsoft SQL Server. The system is designed to manage race events, allowing Participants to browse and enrol in races, and Organisers to create events, manage categories, view enrolments, and capture results.
 
-Raceday Management API is a web-based API developed using ASP.NET Core, C#, and Microsoft SQL Server. The system is designed to manage race events and simplify the process of registering participants, organising events, managing race categories, and recording race results.
+This solution consists of **two projects** inside a single Visual Studio solution:
+1. **`part2POE` (Web API):** Handles all database operations, authentication, and business logic.
+2. **`RaceDayMVC` (MVC Web Application):** The front-end interface that users interact with. It communicates with the Part 2 API via `HttpClient` and uses Session management for authentication.
 
-The API supports two types of users: Participants and Organisers. Participants can view available events and enrol in races, while organisers can manage events and access participant enrolment information.
+## Features (Part 3)
 
-This project also includes unit tests to verify important application functionalities and a GitHub Actions workflow for automated building and testing.Features
+### Authentication and Role-Based Navigation
+- **Registration & Login:** Both Participants and Organisers can register and log in.
+- **Session Management:** The MVC application maintains the user's authenticated state and role (Participant or Organiser) across all pages.
+- **Protected Routes:** Unauthenticated users cannot access dashboards or enrolment pages.
+- **Role-Based Menus:** Distinct navigation experiences based on the logged-in user's role.
 
-User Authentication: Register and log in as a participant or organiser.
+### Organiser Interface
+- **Dashboard:** View a summary of all created events.
+- **Event Management:** Create, edit, and delete events (including name, description, date, location, distance, and type).
+- **Category Management:** Access a page to manage age/distance categories for each event.
+- **Enrolments View:** View participants who have enrolled in specific events, including their selected category and status.
+- **Results Entry:** Capture finishing times and positions for enrolled participants.
 
-Participant Management: Register, retrieve, update, and delete participant information.
+### Participant Interface
+- **Home Page:** Browse all upcoming events with a built-in search/filter option.
+- **Event Details:** View full event information and available categories.
+- **Enrolment:** Select a category from a dropdown and enrol in the event immediately.
+- **My Enrolments:** View a personal list of all events enrolled in, displaying a "Confirmed" status.
+- **My Results:** View personal race history (finish times and positions).
+- **Profile:** View and update personal information and upload a profile picture.
 
-Organiser Management: Manage organiser information.
+### Design & UI
+- **RaceDay Branding:** Custom CSS with a sporting theme (Energetic Orange and Dark Asphalt).
+- **Responsive:** Built using Bootstrap for mobile and desktop compatibility.
+- **Status Colors:** Distinct visual indicators (e.g., Green for Confirmed enrolments).
 
-Event Management: Create, view, update, and delete race events.
+## 🛠️ Technologies Used
+- **C# / ASP.NET Core** – API and MVC development
+- **Microsoft SQL Server (LocalDB)** – Database management
+- **ADO.NET (System.Data.SqlClient)** – Database connectivity in the API
+- **Swagger / Swashbuckle** – API documentation
+- **Bootstrap 5** – Frontend styling
+- **xUnit** – Unit testing
+- **Git and GitHub** – Version control
+- **GitHub Actions** – Continuous integration workflow
 
-Category Management: Create and retrieve race categories.
+## 🗄️ Database
+The project uses a Microsoft SQL Server database named `Raceday`.
+Ensure the database and required tables exist in your SQL Server instance before running the application. 
 
-Race Enrolment: Allow participants to enrol in events and retrieve enrolment information.
-
-Results Management: Record and retrieve participant race results.
-
-API Testing: Test API endpoints using Swagger.
-
-Unit Testing: Verify selected application functionalities.
-
-Automated Workflow: Use GitHub Actions to build the solution and run tests.
-
-🛠️ Technologies Used
-
-C# – Application programming language
-
-ASP.NET Core Web API – API development framework
-
-Microsoft SQL Server – Database management
-
-ADO.NET (System.Data.SqlClient) – Database connectivity
-
-Swagger / Swashbuckle – API documentation and endpoint testing
-
-xUnit – Unit testing
-
-Git and GitHub – Version control and source code hosting
-
-GitHub Actions – Continuous integration workflow
-
- Database
-
-The project uses a Microsoft SQL Server database named Raceday.
-
-The database manages information relating to:
-
-Participants
-
-Organisers
-
-Authentication
-
-Events
-
-Categories
-
-Enrolments
-
-Race results
-
-The application uses a SQL Server LocalDB connection string during local development.
-
-Example connection string:
-
+**Example connection string (in the API):**
+```text
 Data Source=(localdb)\api_endpoint;Database=Raceday;
-
-Make sure the database and required tables exist in your SQL Server instance before running the application. Update the connection string if your local database instance uses a different name.
-
- API Documentation and Testing
-
-The API can be explored using Swagger when the application is running and Swagger is enabled.
-
-Open the Swagger URL displayed by your application, usually in this format:
-
-https://localhost:<port>/swagger
-
-
-
-Swagger allows you to view available endpoints, provide request parameters, submit requests, and inspect responses.
-
-Running Unit Tests
-
-The solution includes test projects for checking selected application functionality.
-
-To run all tests in the solution, execute:
-
-dotnet test
-
-To run the tests in Visual Studio, open Test → Test Explorer, then select Run All Tests.
-
-Some tests may require a configured database and valid test data. Ensure the database connection and required records are available before running database-dependent tests.
-
- Continuous Integration with GitHub Actions
-
-The repository includes a GitHub Actions workflow intended to automate the following tasks when changes are pushed to GitHub or a pull request is created:
-
-Check out the repository.
-
-Set up the .NET SDK.
-
-Restore project dependencies.
-
-Build the solution.
-
-Run unit tests.
-
-Workflow results can be viewed under the Actions tab in the GitHub repository.
-
-Note: The workflow must complete successfully for the automated build and test process to be considered verified. Database-dependent tests may require additional configuration on the GitHub-hosted runner.
-<img width="1543" height="540" alt="workflow" src="https://github.com/user-attachments/assets/938e7430-807b-45e3-bf1e-e2aec2776829" />
-
-https://youtu.be/pFjsR91F9d0
